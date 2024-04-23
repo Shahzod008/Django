@@ -1,0 +1,10 @@
+<!-- post_delete.html -->
+{% extends "base.html" %}
+{% block content %}
+<h1>Удаление поста</h1>
+<p>Вы действительно хотите удалить этот пост?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Удалить</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- post_update.html -->
+{% extends "base.html" %}
+{% block content %}
+<h1>Редактирование поста</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+</form>
+
+<!-- Добавьте ссылку на страницу удаления -->
+<a href="{% url 'post_delete' slug=post.slug %}">Удалить пост</a>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% load static %}
+{% load car_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>{{ title }}</title>
+	<link type="text/css" href="{% static 'car/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'car/image/лого.png' %}" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<table class="table-page" border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td valign="top">
+				{% block mainmenu %}
+				<div class="header">
+					<ul id="mainmenu" class="mainmenu">
+						<li><a href="{% url 'home' %}">Главная</a></li>
+						{% for m in menu %}
+						<li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
+						{% endfor %}
+						{% if request.user.is_authenticated %}
+						<li class="last"><a href="{% url 'profile' %}">{{ user.username }}</a> | <a
+								href="{% url 'logout' %}">Выйти</a></li>
+						{% else %}
+						<li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">
+								Войти </a></li>
+						{% endif %}
+					</ul>
+					<div class="clear"></div>
+				</div>
+				{% endblock mainmenu %}
+
+				<table class="table-content" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<!-- Sidebar слева -->
+						<td valign="top" class="left-chapters">
+							<ul id="leftchapters">
+								{% if cat_selected == 0 %}
+								<li class="selected">Все категории</li>
+								<hr>
+								{% else %}
+								<li><a href="{% url 'home' %}">Все категории</a></li>
+								<hr>
+								{% endif %}
+
+								{% for c in cats %}
+								{% if c.car__count > 0 %}
+								{% if c.pk == cat_selected %}
+								<li class="selected">{{ c.name }}</li>
+								{% else %}
+								<li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+								{% endif %}
+								{% endif %}
+								{% endfor %}
+								<li class="share">
+									<p>Наш канал</p>
+									<div class="yt-tg">
+										<a class="share-yt" href="https://www.youtube.com/@Shahzod-Ergashev/featured"
+											target="_blank" rel="nofollow"></a>
+										<a class="share-tg" href="https://t.me/our_telegram_channel" target="_blank"
+											rel="nofollow"></a>
+									</div>
+								</li>
+							</ul>
+						</td>
+						<!-- Конец Sidebar'а -->
+						<td valign="top" class="content">
+							<!-- Хлебные крошки -->
+							{% block breadcrumbs %}
+							{% endblock %}
+							<!-- Блок контента -->
+							<div class="content-text">
+								{% block content %}
+								{% endblock %}
+								{% if page_obj.has_other_pages %}
+								<nav class="list-pages">
+									<ul>
+										{% for p in paginator.page_range %}
+										{% if page_obj.number == p %}
+										<li class="page-num page-num-selected">{{ p }}</li>
+										{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %} <li
+											class="page-num">
+											<a href="?page={{ p }}">{{ p }}</a>
+											</li>
+											{% endif %}
+											{% endfor %}
+									</ul>
+								</nav>
+								{% endif %}
+							</div>
+							<!-- Конец блока контента -->
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!-- Footer -->
+		<tr>
+			<td valign="top">
+				<div id="footer">
+					<p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, строго запрещено.</p>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<!-- Конец footer'а и страницы -->
+</body>
+
+</html>

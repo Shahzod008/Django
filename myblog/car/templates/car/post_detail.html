@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+<!-- Добавьте ссылки на страницы редактирования и удаления -->
+<a href="{% url 'post_update' slug=post.slug %}">Редактировать</a>
+<a href="{% url 'post_delete' slug=post.slug %}">Удалить</a>
+{% endblock %}

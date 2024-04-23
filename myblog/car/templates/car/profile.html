@@ -1,0 +1,31 @@
+{% extends 'car/index.html' %}
+
+{% block content %}
+
+<div class="profile">
+    <div class="user_block">
+        <div class="user_info">
+            <h6 class="user_label">Имя пользователя:</h6>
+            <p class="user_value">{{ user.username }}</p>
+        </div>
+        <div class="user_info">
+            <h6 class="user_label">Имя:</h6>
+            <p class="user_value">{{user.first_name}}</p>
+        </div>
+        <div class="user_info">
+            <h6 class="user_label">Фамилия:</h6>
+            <p class="user_value">{{user.last_name}}</p>
+        </div>
+        <div class="user_info">
+            <h6 class="user_label">Email:</h6>
+            <p class="user_value">{{user.email}}</p>
+        </div>
+        <div class="user_info">
+            <h6 class="user_label">Номер телефона:</h6>
+            <p class="user_value">+1 123-456-7890</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

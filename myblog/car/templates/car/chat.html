@@ -1,0 +1,104 @@
+{% extends 'car/base.html' %}
+
+{% block content %}
+<div class="cont">
+    <div class="for">
+    <div class="message-container" id="message-container">
+        <div class="container">
+            {% for message in messages %}
+            <div class="message">
+                <p class="sender">{{ message.sender }}:</p>
+                <p class="content">{{ message.content }}</p>
+            </div>    
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    <form class="form1" method="POST" action="{% url 'chat' %}">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                {{ form.content }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="send-button">Отправить</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<style>
+ .for{
+    margin-top: -40px; 
+} 
+  
+textarea[name="content"] {
+    width: 100%;
+    height: 50px;
+    max-width: 600px;
+    display: block;
+    margin: 10px 0 10px 0 ;
+}
+
+.content{
+    padding: 10px;
+}
+
+.cont{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-row {
+    align-items: baseline;
+}
+
+.form-group {
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+.message {
+    flex-basis: 100%;
+}
+}
+       
+.message-container {
+    border: 1px solid #000000;
+    padding: 20px;
+    max-width: 600px;
+    /*margin: 0 auto; */
+    height: 430px;
+    overflow: auto;
+}
+
+.sender {
+    font-weight: bold;
+    font-family: monospace;
+}
+
+
+.send-button {
+    background-color: #1b3b3f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+}
+
+.send-button:hover{
+	background-color: #3c7a82;
+}
+
+
+</style>
+
+<script>
+    function scrollToBottom() {
+    const messageContainer = document.getElementById('message-container');
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+scrollToBottom();
+</script>
+
+{% endblock %}
